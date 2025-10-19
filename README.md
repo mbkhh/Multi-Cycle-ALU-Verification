@@ -17,8 +17,39 @@ The environment is built using a layered approach, separating the test, transact
 ## File Structure
 
 The project is organized into a hierarchical directory structure to maintain clarity and modularity.
- ├── hdl/ │ └── alu_multi_cycle.sv # The ALU DUT (Design Under Test) └── hvl/ ├── class_pkg.sv # Package containing all class definitions ├── environment_packages/ │ ├── Environment.sv # Top-level verification environment component │ ├── Generator.sv # Generates randomized stimulus (transactions) │ ├── Model.sv # Behavioral "golden" model of the ALU │ └── Scoreboard.sv # Compares DUT and Model outputs ├── interface_packages/ │ ├── alu_in_pkg/ # Components for the input agent │ │ ├── ALU_in_coverage.sv │ │ ├── ALU_in_driver.sv │ │ ├── ALU_in_if.sv │ │ ├── ALU_in_monitor.sv │ │ └── ALU_in_transaction.sv │ └── alu_out_pkg/ # Components for the output agent │ ├── ALU_out_coverage.sv │ ├── ALU_out_if.sv │ ├── ALU_out_monitor.sv │ └── ALU_out_transaction.sv ├── parameter_packages/ │ └── parameters.sv # Global parameters and definitions ├── tests/ │ ├── random_test.sv # Fully randomized test case │ ├── test_high.sv # Directed test for high operand values │ ├── test_mid.sv # Directed test for mid-range operand values │ └── test_mix.sv # Directed test with a mix of constraints └── top.sv # Testbench top module, connects DUT and test environment
-
+.
+├── rtl/
+│   └── alu_multi_cycle.sv   
+└── verif/
+    ├── tb/
+    │   ├── interfaces.sv    
+    │   └── top.sv           
+    │
+    ├── agents/
+    │   ├── alu_in_agent/
+    │   │   ├── alu_in_transaction.sv
+    │   │   ├── alu_in_driver.sv
+    │   │   ├── alu_in_monitor.sv
+    │   │   ├── alu_in_coverage.sv
+    │   │   └── alu_in_pkg.sv
+    │   └── alu_out_agent/
+    │       ├── alu_out_transaction.sv
+    │       ├── alu_out_monitor.sv
+    │       ├── alu_out_coverage.sv
+    │       └── alu_out_pkg.s
+    │
+    ├── env/
+    │   ├── model.sv
+    │   ├── generator.sv
+    │   ├── scoreboard.sv
+    │   ├── environment.sv
+    │   └── env_pkg.sv       
+    │
+    └── tests/
+        ├── base_test.sv     
+        ├── random_test.sv
+        ├── test_high.sv
+        └── tests_pkg.sv     
 ## Available Tests
 
 The `hvl/tests/` directory contains several tests to validate the DUT:
