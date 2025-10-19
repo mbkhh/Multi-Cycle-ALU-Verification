@@ -1,0 +1,4 @@
+sim/*
+!sim/*.tcl
+!sim/test_plan.xml
+
